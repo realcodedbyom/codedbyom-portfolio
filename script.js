@@ -1,0 +1,151 @@
+// Set current year in footer
+document.getElementById('current-year').textContent = new Date().getFullYear();
+
+// Scroll to top functionality
+const scrollTopButton = document.getElementById('scrollToTop');
+
+window.addEventListener('scroll', () => {
+    if (window.pageYOffset > 300) {
+        scrollTopButton.classList.add('visible');
+    } else {
+        scrollTopButton.classList.remove('visible');
+    }
+});
+
+scrollTopButton.addEventListener('click', () => {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+});
+
+// Navigation functionality
+const navbar = document.getElementById('navbar');
+const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+const navLinks = document.querySelector('.nav-links');
+
+window.addEventListener('scroll', () => {
+    if (window.pageYOffset > 50) {
+        navbar.classList.add('scrolled');
+    } else {
+        navbar.classList.remove('scrolled');
+    }
+});
+
+mobileMenuBtn.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+});
+
+// Close mobile menu when clicking a link
+document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+    });
+});
+
+// Close mobile menu when clicking outside
+document.addEventListener('click', (e) => {
+    if (!e.target.closest('.nav-container')) {
+        navLinks.classList.remove('active');
+    }
+});
+
+// Animate skill bars on skills page
+if (document.querySelector('.skills-proficiency')) {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const progressBars = document.querySelectorAll('.proficiency-progress');
+                progressBars.forEach(bar => {
+                    const width = bar.style.width;
+                    bar.style.width = '0';
+                    setTimeout(() => {
+                        bar.style.width = width;
+                    }, 100);
+                });
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+
+    observer.observe(document.querySelector('.skills-proficiency'));
+}
+
+// Add animation to timeline items
+if (document.querySelector('.timeline')) {
+    const timelineObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.timeline-item').forEach(item => {
+        item.style.opacity = '0';
+        item.style.transform = 'translateY(40px)';
+        item.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        timelineObserver.observe(item);
+    });
+}
+
+// Add animation to service cards
+if (document.querySelector('.services-grid')) {
+    const serviceObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.service-card').forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(40px)';
+        card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        card.style.transitionDelay = `${index * 0.1}s`;
+        serviceObserver.observe(card);
+    });
+}
+
+// Add animation to achievement cards
+if (document.querySelector('.achievements-grid')) {
+    const achievementObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.achievement-card').forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(40px)';
+        card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        card.style.transitionDelay = `${index * 0.1}s`;
+        achievementObserver.observe(card);
+    });
+}
+
+// Add animation to project cards
+if (document.querySelector('.project-card')) {
+    const projectObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.project-card').forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(40px)';
+        card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        card.style.transitionDelay = `${index * 0.1}s`;
+        projectObserver.observe(card);
+    });
+}
