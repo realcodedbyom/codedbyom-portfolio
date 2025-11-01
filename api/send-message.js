@@ -1,4 +1,14 @@
 export default async function handler(req, res) {
+  // Add CORS headers
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS')
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
+
+  // Handle preflight request
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end()
+  }
+
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" })
   }
@@ -10,9 +20,9 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: "All fields are required" })
   }
 
-  // Telegram Bot credentials
-  const TELEGRAM_BOT_TOKEN = "8344106996:AAELjLbumrsA6cwlhJUaHWumExh0vLf4NW8"
-  const TELEGRAM_CHAT_ID = "2001901489"
+  // Telegram Bot credentials from environment variables
+  const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN || "8344106996:AAELjLbumrsA6cwlhJUaHWumExh0vLf4NW8"
+  const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID || "2001901489"
 
   // Format the message for Telegram
   const telegramMessage = `
